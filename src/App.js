@@ -4,12 +4,34 @@ import NavBar1 from "./Components/NavBar1";
 import News from "./Components/News";
 import ContactForm from "./Components/ContactForm";
 import AddArticles from "./Components/AddArticles";
+import AddArticle from "./Components/AddArticle";
+import ImageGallery from 'react-image-gallery';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import "react-image-gallery/styles/css/image-gallery.css";
+
 import { BrowserRouter, Route, Routes } 
     from "react-router-dom";
  
 function App() {
+    const images = [
+        {
+          original: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86'
+          ,
+          thumbnail: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86',
+        },
+        {
+            original: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86'
+            ,
+            thumbnail: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86',
+          },
+          {
+            original: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86'
+            ,
+            thumbnail: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86',
+          },
+    ];
+    
     return (
         <>
             <div className="App">
@@ -46,16 +68,15 @@ function App() {
                                             <News key="sports"
                                             category="sports" />}
                                     />
-                                    <Route
-                                        path="/Business"
+                                   <Route
+                                        path="/addArticles"
                                         element={
-                                            <News key="business"
-                                            category="business" />}
+                                            <AddArticles />}
                                     />
                                     <Route
                                         path="/addArticle"
                                         element={
-                                            <AddArticles />}
+                                            <AddArticle />}
                                     />
                                    
                                     <Route path="/contact"
@@ -65,6 +86,7 @@ function App() {
                         </div>
                     </div>
                 </BrowserRouter>
+                <ImageGallery items={images} />
             </div>
         </>
     );

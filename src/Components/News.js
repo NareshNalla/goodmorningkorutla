@@ -10,7 +10,7 @@ function News(props) {
     let category = props.category;
     let [articles, setArticles] = useState([]);
     let [totalResults, setTotalResults] = useState(0);
-    let [page, setPage] = useState(1);
+    let [page, setPage] = useState(0);
  
 //     let resultNews = async () => {
 //         const url =
@@ -22,9 +22,6 @@ function News(props) {
 //     };
     
  
-//     useEffect(() => {
-//         resultNews();
-//     }, []);
  let resultNews =  async () => {
     console.log("articles, newData");
     await getDocs(collection(db, "articles"))
@@ -33,6 +30,7 @@ function News(props) {
                 var data = element.data();
                // setArticles(parsedData.articles);
                 setArticles(arr => [...arr, data]);
+                setTotalResults(data.length);
                 console.log('sds '+data)
     
             });
@@ -42,7 +40,9 @@ function News(props) {
 }
 
 useEffect(()=>{
+    console.log('useEffect ');
     resultNews();
+    console.log('useEffect end ');
 }, [])
 
     let fetchData = async () => {

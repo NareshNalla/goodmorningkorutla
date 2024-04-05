@@ -27,7 +27,7 @@ function NavBar2() {
                                     Home
                                 </Link>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <Link className="nav-link" to={`/Entertainment`}>
                                     Entertainment
                                 </Link>
@@ -51,10 +51,10 @@ function NavBar2() {
                                 <Link className="nav-link" to={`/Health`}>
                                     AboutUs
                                 </Link>
-                            </li>
+                            </li> */}
                             <li className="nav-item">
                                 <Link className="nav-link" to={`/contact`}>
-                                    ContactUs
+                                    contact
                                 </Link>
                             </li>
                         </ul>
