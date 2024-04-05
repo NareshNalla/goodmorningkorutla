@@ -6,13 +6,13 @@ import { getStorage } from 'firebase/storage';
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCzSLviiMpE1RbwdJQ5M3D0p28I622Aceg",
-  authDomain: "korutla-666.firebaseapp.com",
-  projectId: "korutla-666",
-  storageBucket: "korutla-666.appspot.com",
-  messagingSenderId: "1013896062309",
-  appId: "1:1013896062309:web:0030d3cbc516e4e2862d8c",
-  measurementId: "G-TS571Z12QX"
+  apiKey: "AIzaSyDtk5HznKZlZ_G8xUz0o_XdKFO-SCf_KHg",
+  authDomain: "news-666.firebaseapp.com",
+  projectId: "news-666",
+  storageBucket: "news-666.appspot.com",
+  messagingSenderId: "503598812101",
+  appId: "1:503598812101:web:9c0295271e43346bfa19ac",
+  measurementId: "G-PN5MSYZ60B"
 };
 // Initialize Firebase
 
