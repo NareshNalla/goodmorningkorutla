@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/goodmorningkorutla/static/css/main.bd58071c.css",
+    "main.js": "/goodmorningkorutla/static/js/main.38633af4.js",
+    "static/js/453.5de04d47.chunk.js": "/goodmorningkorutla/static/js/453.5de04d47.chunk.js",
+    "index.html": "/goodmorningkorutla/index.html",
+    "main.bd58071c.css.map": "/goodmorningkorutla/static/css/main.bd58071c.css.map",
+    "main.38633af4.js.map": "/goodmorningkorutla/static/js/main.38633af4.js.map",
+    "453.5de04d47.chunk.js.map": "/goodmorningkorutla/static/js/453.5de04d47.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bd58071c.css",
+    "static/js/main.38633af4.js"
+  ]
+}
