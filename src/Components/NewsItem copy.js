@@ -4,46 +4,26 @@ import { imageDb } from "../firebase";
 import ImageGallery from 'react-image-gallery';
 import { NavLink } from 'react-router-dom';
  
-const _renderVideo = (item) => {
-    return (
-      <div className="video-wrapper">
-        <iframe
-          width="100%"
-          height="480px"
-          src={item.embedUrl}
-          frameBorder="0"
-          allowFullScreen
-          title="ex"
-        />
-      </div>
-    );
-};
+const renderItem = item => (
+    <div >
+       <NavLink end to="/AddArticle">Link</NavLink>
+    </div>
+);
+
 function NewsItem(props) {
     
     let urlsList = [];
     let {
         desc, title, imageURL,
-        newsUrl, sourceName ,dateString, embedUrl
+        newsUrl, sourceName ,dateString
     } = props;
 
     imageURL.map((element) => {
-      console.log( "ele "+element)
-        if(element.toLowerCase().includes('youtube')){
-      const   image = {
+        const image = {
                   original: element,
-                  thumbnail: element,
-                  embedUrl: embedUrl,
-                  renderItem: _renderVideo.bind(this)      
+                  thumbnail: element
         }
         urlsList.push(image);
-    }else{
-        const  image = {
-                  original: element,
-                  thumbnail: element,          
-        }
-        urlsList.push(image);
-        }
-       
     });
         
 
@@ -85,8 +65,7 @@ function NewsItem(props) {
                         text-end">
                         - {sourceName}
                     </p>
-                    <div  className="card-text " >{desc.split('\n')}</div>
-                    <p></p>
+                    <p className="card-text">{desc}</p>
                     <a href={newsUrl}
                         target="_blank"
                         className="btn btn-primary btn-sm">

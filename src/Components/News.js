@@ -74,24 +74,42 @@ useEffect(()=>{
             }
         >
             <div className="container my-3">
-                <div className="row">
-                    {articles.map((element) => {
+            <div class="row justify-content-md-center">
+    <div class="col col-lg-2">
+      
+    </div>
+    <div class="col-md-8">
+      Welcome to Good Morning Korutla , Website . Your can find all information about 
+      how our Leader Dr. Sanjay Kalwakuntla doing this program.
+    </div>
+    <div class="col col-lg-2">
+      
+    </div>
+  </div>
+        <div class="row">
+        <div class="col-8"> {articles.map((element) => {
                         return (
-                            <div className="col-md-4" key={element.url}>
+                            <div className="col-md-8" key={element.url}>
                                 <NewsItem
                                     sourceName={element.source.name}
                                     title={element.title}
                                     desc={element.description}
                                     imageURL=
-                                    {element.urlToImage ?
-                                        element.urlToImage :
-                                        Image}
+                                    {element.urlToImage}
                                     newsUrl={element.url}
+                                    dateString = {element.dateStr}
+                                    embedUrl = {element.embedUrl}
                                 />
                             </div>
                         );
-                    })}
-                </div>
+                    })}</div>
+        <div class="col-2">
+        <div className="col-md-2">
+                                
+         </div>
+        </div>
+        </div>
+                
             </div>
         </InfiniteScroll>
     );

@@ -173,3 +173,10 @@ button {
 button:hover {
   background-color: #2980b9;
 }
+.rbb-ImageGallery {
+  max-width: 800px;
+  margin: auto;
+}
+.pretext{
+  white-space: pre-line;
+}

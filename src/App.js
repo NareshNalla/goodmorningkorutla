@@ -5,7 +5,6 @@ import News from "./Components/News";
 import ContactForm from "./Components/ContactForm";
 import AddArticles from "./Components/AddArticles";
 import AddArticle from "./Components/AddArticle";
-import ImageGallery from 'react-image-gallery';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -50,10 +49,10 @@ function App() {
                                             category="general" />}
                                     />
                                     <Route
-                                        path="/Entertainment"
+                                        path="/goodmorningkorutla"
                                         element={
-                                            <News key="entertainment"
-                                            category="entertainment" />
+                                            <News key="general"
+                                            category="general" />
                                         }
                                     />
                                     <Route
@@ -86,7 +85,7 @@ function App() {
                         </div>
                     </div>
                 </BrowserRouter>
-                <ImageGallery items={images} />
+               
             </div>
         </>
     );
