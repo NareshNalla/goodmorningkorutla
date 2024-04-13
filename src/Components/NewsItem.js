@@ -27,7 +27,7 @@ function NewsItem(props) {
     } = props;
 
     imageURL.map((element) => {
-      console.log( "ele "+element)
+      //console.log( "ele "+element)
         if(element.toLowerCase().includes('youtube')){
       const   image = {
                   original: element,

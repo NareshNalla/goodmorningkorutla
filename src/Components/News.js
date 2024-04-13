@@ -3,14 +3,21 @@ import NewsItem from "./NewsItem";
 import Image from "../Images/News1.jpg";
 import InfiniteScroll
     from "react-infinite-scroll-component";
-import { collection, addDoc, getDocs } from "firebase/firestore";
-import {db} from '../firebase';
- 
+import { collection,addDoc, getDocs } from "firebase/firestore";
+
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import {db, imageDb} from '../firebase';
+
+import ImageGallery from 'react-image-gallery';
+
+const urlsList = [];
 function News(props) {
     let category = props.category;
     let [articles, setArticles] = useState([]);
     let [totalResults, setTotalResults] = useState(0);
     let [page, setPage] = useState(0);
+   
+    const jsonUrlsList = JSON.stringify({});
  
 //     let resultNews = async () => {
 //         const url =
@@ -20,7 +27,7 @@ function News(props) {
 //         setArticles(parsedData.articles);
 //         setTotalResults(parsedData.totalResults);
 //     };
-    
+
  
  let resultNews =  async () => {
     console.log("articles, newData");
@@ -36,14 +43,107 @@ function News(props) {
             });
            // setTodos(newData);                
           
-        })
+        });
+
 }
+function createImageObject(originalUrl, thumbnailUrl) {
+    return {
+      original: originalUrl,
+      thumbnail: thumbnailUrl,
+    };
+  }
 
 useEffect(()=>{
     console.log('useEffect ');
     resultNews();
+    listItems();
     console.log('useEffect end ');
 }, [])
+
+const images1 = [
+    {
+      original: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86'
+      ,
+      thumbnail: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86',
+    },
+    {
+        original: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86'
+        ,
+        thumbnail: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86',
+      },
+      {
+        original: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86'
+        ,
+        thumbnail: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86',
+      },
+];
+// let listItem =  async () => {
+//     const myPicks = ref(imageDb, 'homeslides/')
+
+//     await listAll(myPicks)
+//         .then(async (res)=> {
+//             res.items.forEach((item) => {
+//                 console.log("item "+item.toString());
+//                 const url = getDownloadURL(item);
+//                 console.log("url  "+url.toString)
+//                 const  image = {
+//                     original: url,
+//                     thumbnail: url,          
+//             }
+
+//                 urlsList.push(image);
+//             });
+//         })
+//         .catch((err) => {
+//             alert(err.message);
+//         });
+//         console.log("urlsList "+urlsList);
+//         console.log("urlsList "+urlsList.length)
+// };
+
+let listItems = async () => { // Ensure consistent naming (plural for list)
+   // const storage = getStorage(); // Initialize Firebase Storage
+    const myPicksRef = ref(imageDb, 'homeslides/'); // Reference to homeslides folder
+  
+    try {
+        const [items] = await Promise.all([listAll(myPicksRef)]); // Get all items
+    
+       
+        items.items.forEach(async (itemRef) => {
+            const url   = await  getDownloadURL(itemRef); 
+            console.log("url "+url)
+            urlsList.push(createImageObject(url, url));
+            
+    //         const  image = {
+    //             original: url,
+    //             thumbnail: url,          
+    //           }
+              
+    //   urlsList.push(image);
+      // console.log("urlsList :", urlsList.toString());
+      //const jsonUrlsList = JSON.stringify(urlsList);
+    //  console.log("urlsList (JSON):", jsonUrlsList);
+
+      
+
+        //   const downloadURL = await getDownloadURL(itemRef); // Get URL for each item
+        //     const newLocal = {
+        //         original: downloadURL,
+        //         thumbnail: downloadURL,
+        //     };
+        //     console.log("newLocal "+newLocal);
+        //   urlsList.push(newLocal);
+        });
+    
+        console.log("urlsList:", urlsList);
+        console.log("urlsList length:", urlsList.length);
+        console.log("images1 "+images1);
+        console.log("images1 length"+images1.length);
+      } catch (error) {
+        console.error("Error fetching image URLs:", error.message);
+        // Handle errors more gracefully (e.g., display user-friendly message)
+      }
+  };
 
     let fetchData = async () => {
         const url =
@@ -54,7 +154,7 @@ useEffect(()=>{
         let parsedData = await data.json();
         setArticles(articles.concat(parsedData.articles));
     };
- 
+    
     return (
         <InfiniteScroll
             //This is important field to render the next data
@@ -73,7 +173,21 @@ useEffect(()=>{
                 </p>
             }
         >
+            <div className="container-fluid">
+            {/* <ImageGallery items={urlsList} 
+                        showPlayButton={false}
+                        showFullscreenButton={false}
+                        slideInterval={1000}
+                        slideOnThumbnailOver={false}
+                        showIndex={false}
+                        showNav={true}
+                        showThumbnails={false}
+                        /> */}
+            </div>
             <div className="container my-3">
+
+           
+
             <div class="row justify-content-md-center">
     <div class="col col-lg-2">
       
@@ -81,7 +195,14 @@ useEffect(()=>{
     <div class="col-md-8">
       Welcome to Good Morning Korutla , Website . Your can find all information about 
       how our Leader Dr. Sanjay Kalwakuntla doing this program.
+      <div className="rbb-ImageGallery">
+    
+                </div>
+
+              
+               
     </div>
+    
     <div class="col col-lg-2">
       
     </div>

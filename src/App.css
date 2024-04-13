@@ -180,3 +180,30 @@ button:hover {
 .pretext{
   white-space: pre-line;
 }
+
+.bg-pink{
+  color: pink;
+  background-color: hsl(315, 90%, 63%) !important;;
+}
+/* 
+homeslides */
+
+.container-fluid{
+  height:100px;
+  background-color:red
+  }
+  .content-slides{
+    width: 1024px;
+    height: 400px; /* Maintain aspect ratio */
+    object-fit: cover; /* Optional: Scale image to fill container */
+  color:white;
+  background-color :rgba(0,0,0,0.5)
+  }
+  /* custom.css */
+:root {
+  --light-pink: #950a21;
+}
+
+.light-pink-bg {
+  background-color: var(--light-pink);
+}
