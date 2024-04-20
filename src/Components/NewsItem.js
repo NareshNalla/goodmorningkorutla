@@ -3,6 +3,7 @@ import React from "react";
 import { imageDb } from "../firebase";
 import ImageGallery from 'react-image-gallery';
 import { NavLink } from 'react-router-dom';
+import './NewsItem.css'
  
 const _renderVideo = (item) => {
     return (
@@ -48,53 +49,46 @@ function NewsItem(props) {
         
 
     return (
-        <div>
-            <div className="card my-3">
-            <div className="card-body">
-                    <h5 className="card-title">{dateString}</h5>
-                </div>
-          
-                <div className="rbb-ImageGallery">
-                        <ImageGallery items={urlsList} 
-                        showPlayButton={false}
-                        showFullscreenButton={false}
-                        slideInterval={1000}
-                        slideOnThumbnailOver={false}
-                        showIndex={false}
-                        showNav={false}
-                        />
-                </div>
+   
 
-            {/* <div className="rbb-ImageGallery">
-                        <ImageGallery items={urlsList} 
-                        showThumbnails={false}
-                        slideInterval={1000}
-                        showNav={true}
-                        showBullets={urlsList.length > 1}
-                        showPlayButton={false}
-                        showFullscreenButton={false}
-                        slideOnThumbnailHover={false}
-                        />
-                </div>  */}
-    
-                    
-                <div className="card-body">
-                    <h5 className="card-title">{title}</h5>
-                    <p className="w-100 fs-6 
-                        text-body-secondary 
-                        text-end">
-                        - {sourceName}
-                    </p>
-                    <div  className="card-text " >{desc.split('\n')}</div>
-                    <p></p>
-                    <a href={newsUrl}
-                        target="_blank"
-                        className="btn btn-primary btn-sm">
-                        Read More...
-                    </a>
-                </div>
-            </div>
+    <div className="container-fluid p-0">
+    <div className="row justify-content-center p-0">
+      <div className="col-lg-10 col-md-11">
+        <div className="card my-3 p-0">
+        <ImageGallery 
+              items={urlsList} 
+              showPlayButton={false}
+              showFullscreenButton={urlsList.length === 1 ? false : true}
+              slideInterval={1000}
+              slideOnThumbnailOver={false}
+              showIndex={false}
+              showThumbnails={urlsList.length === 1 ? false : true}
+              showNav={false}
+            />
+        <div className="card-body">
+        <div className="d-flex justify-content-between align-items-center">
+        <h5 className="card-title" style={{ display: 'inline' }}>{dateString}</h5>
+        <p className="w-auto fs-6 text-body-secondary" style={{ whiteSpace: 'nowrap' }}>- {sourceName}</p>
         </div>
+         
+            <div className="card-text">
+              {desc.split('\n').map((line, index) => (
+                <p key={index}>{line}</p>
+              ))}
+            </div>
+        
+            <a 
+            href={newsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary btn-sm me-2 mb-2">
+            <small>Read More...</small>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
     );
 }
  

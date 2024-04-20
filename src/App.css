@@ -207,3 +207,59 @@ homeslides */
 .light-pink-bg {
   background-color: var(--light-pink);
 }
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	    bottom: 50%;
+    margin-bottom: -55px;
+	right:30px;
+	color: white !important;
+	background-color:#05940b;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+
+.my-float{font-family:FontAwesome;
+	margin-top:16px;
+}
+	.float:before {content:'join WhatsApp Group';    position: absolute;
+    left: -178px;
+    top: 16px;
+    font-size: 15px;
+    background: #05940b;
+    padding: 5px 15px;
+    border-radius: 30px;
+    color: #ffffff;
+  }
+    
+    .float.sticky {
+      position: sticky;
+    }
+    
+    .float:hover {
+      background-color: #00cc44;
+    }
+    
+    .float span {
+      display: none;
+    }
+    
+    .float:hover span {
+      display: inline;
+      position: absolute;
+      background-color: #00cc44;
+      padding: 5px;
+      border-radius: 5px;
+      bottom: -20px;
+      right: 60px;
+      z-index: 1001;
+    }
+    
+    
+  

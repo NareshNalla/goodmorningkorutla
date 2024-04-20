@@ -1,68 +1,39 @@
-import React from "react";
-import { Link } from "react-router-dom";
- 
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
+import Collapse from 'react-bootstrap/Collapse';
+
 function NavBar2() {
-    return (
-        <div>
-            <nav className="navbar navbar-expand-lg 
-                bg-body-tertiary">
-                <div className="container-fluid ">
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav"
-                        aria-controls="navbarNav"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse"
-                        id="navbarNav">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <Link className="nav-link active"
-                                    aria-current="page" to={`/`}>
-                                    Home
-                                </Link>
-                            </li>
-                            {/* <li className="nav-item">
-                                <Link className="nav-link" to={`/Entertainment`}>
-                                    Entertainment
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={`/Technology`}>
-                                    Map
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={`/Sports`}>
-                                    Templates
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={`/Business`}>
-                                    Events
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={`/Health`}>
-                                    AboutUs
-                                </Link>
-                            </li> */}
-                            <li className="nav-item">
-                                <Link className="nav-link" to={`/contact`}>
-                                    contact
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    );
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    closeMenu();
+  }, []);
+
+  return (
+    <Navbar bg="light" expand="lg" className="shadow-sm">
+      <Container fluid>
+        <Navbar.Toggle aria-controls="navbarNav" onClick={toggleMenu} />
+        <Navbar.Collapse in={isOpen} id="navbarNav" className="justify-content-end">
+          <Nav className="me-auto" style={{ paddingLeft: '15px' }}>
+            <Nav.Link as={Link} to="/" onClick={closeMenu}>Home</Nav.Link>
+            {/* Add your other menu items here */}
+            <Nav.Link as={Link} to="/contact" onClick={closeMenu}>Contact</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
 }
- 
+
 export default NavBar2;

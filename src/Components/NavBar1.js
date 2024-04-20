@@ -1,4 +1,6 @@
 import React from "react";
+import SocialLinks from "./SocialLinks";
+
  
 function NavBar1() {
     return (
@@ -8,7 +10,9 @@ function NavBar1() {
                     <a className="navbar-brand " href="/">
                         Good Morning Korutla
                     </a>
+                    <SocialLinks />
                 </div>
+              
             </nav>
         </div>
     );

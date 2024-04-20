@@ -1,0 +1,35 @@
+ [
+    {
+      "target": "_blank",
+      "alt": "mallapur",
+      "title": "mallapur",
+      "href": "mallapur",
+      "coords": "266,156,430,255,539,213,541,58,363,53,321,84",
+      "shape": "poly"
+    },
+    {
+      "target": "_blank",
+      "alt": "korutla",
+      "title": "korutla",
+      "href": "korutla",
+      "coords": "544,489,571,370,441,258,297,327,247,447,260,577,349,506,445,527",
+      "shape": "poly"
+    },
+    {
+      "target": "_blank",
+      "alt": "ibrahimpatnam",
+      "title": "ibrahimpatnam",
+      "href": "ibrahimpatnam",
+      "coords": "435,261,329,193,269,155,172,116,118,165,57,230,49,288,73,338,195,338,285,334",
+      "shape": "poly"
+    },
+    {
+      "target": "_blank",
+      "alt": "metpally",
+      "title": "metpally",
+      "href": "metpally",
+      "coords": "83,339,222,337,284,340,264,399,242,449,253,519,258,581,249,619,169,631,116,589,98,455,84,399,86,364",
+      "shape": "poly",
+      "names": ["Vellulla", "Atmakur"]
+    }
+  ]

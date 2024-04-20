@@ -1,150 +1,107 @@
-import { React, useState, useEffect } from "react";
-import { collection, addDoc , Timestamp } from "firebase/firestore";
-import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import {db, imageDb} from '../firebase';
-import { v4 } from "uuid";
- 
-const AddArticles = () => {
-    const [Title, Settitle] = useState("");
-    const [Description, Setdescription] = useState("");
-    const [UrlToImage, SeturlToImage] = useState([]);
-    const [Sources, Setsources] = useState([]);
-    const [id, Setid] = useState([]);
-    const [SourceName, SetsourcesName] = useState([]);
-    const [img,setImg] =useState([])
-    const [imgUrl,setImgUrl] =useState([])
-    const [embedUrl, SetembedUrl] = useState("");
-    const [dateString, SetdateString] = useState("");
-    
+import React, { useState, useEffect } from "react";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { db, imageDb } from '../firebase';
+import { v4 as uuidv4 } from "uuid";
+import "./AddArticle.css";
+import 'bootstrap/dist/css/bootstrap.css';
 
-   function convertTimestampToDate(timestamp) {
-    let date = timestamp.toDate();
-    let mm = date.getMonth()+1;
-    let dd = date.getDate();
-    let yyyy = date.getFullYear();
+const AddArticle = () => {
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [urlToImage, setUrlToImage] = useState([]);
+    const [sourceName, setSourceName] = useState("");
+    const [embedUrl, setEmbedUrl] = useState("");
+    const [dateString, setDateString] = useState("");
 
-    date = mm + '-' + dd + '-' + yyyy;
-    return date;
-};
-const timestampStr = Timestamp.now(); 
+    const handleDate = () => {
+        const timestamp = Timestamp.now();
+        const date = convertTimestampToDate(timestamp);
+        setDateString(date);
+    };
 
-const  dateStr =  convertTimestampToDate(timestampStr);
+    const convertTimestampToDate = (timestamp) => {
+        const date = timestamp.toDate();
+        const mm = date.getMonth() + 1;
+        const dd = date.getDate();
+        const yyyy = date.getFullYear();
+        return `${mm}-${dd}-${yyyy}`;
+    };
 
-    const sub = async (e) => {
+    const handleFileChange = (e) => {
+        const files = e.target.files;
+        setUrlToImage(files);
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        let urlsList = [];
-        if(dateString.trim() == ""){
-            
-        for(let i = 0; i<img.length; i++){
-            if(img[i] !==null){
-               // const imgRef =  ref(imageDb,`files/${v4()}`)
-            const  imgRef =  ref(imageDb,`files/${dateStr}/${img[i].name}`);
-               
-             const snapshot =  await  uploadBytes(imgRef,img[i]); 
-    
-             const url   = await  getDownloadURL(snapshot.ref); 
-                        console.log("url "+url)
-                        urlsList.push(url);
-        
-             }
-            }
-        }else{
-            for(let i = 0; i<img.length; i++){
-                if(img[i] !==null){
-                   // const imgRef =  ref(imageDb,`files/${v4()}`)
-                 const imgRef =  ref(imageDb,`files/${dateString}/${img[i].name}`);
-                   
-                 const snapshot =  await  uploadBytes(imgRef,img[i]); 
-        
-                 const url   = await  getDownloadURL(snapshot.ref); 
-                            console.log("url "+url)
-                            urlsList.push(url);
-                // getDownloadURL(snapshot.ref).then(url=>{
-                //     console.log("url "+url)
-                //     urlsList.push(url);
-                // })
-                 }
-                }
+
+        if (dateString.trim() === "") {
+            handleDate();
         }
-        console.log("size urlsList"+urlsList.length);
-       
-        urlsList.push(embedUrl);
-         
-        try {
-            const SourceObj = {
-                id:id,
-                name: SourceName
+
+        const urlsList = [];
+        for (let i = 0; i < urlToImage.length; i++) {
+            if (urlToImage[i] !== null) {
+                const imgRef = ref(imageDb, `files/${dateString}/${urlToImage[i].name}`);
+                const snapshot = await uploadBytes(imgRef, urlToImage[i]);
+                const url = await getDownloadURL(snapshot.ref);
+                urlsList.push(url);
             }
-            
-            const docRef = await addDoc(collection(db, "articles"), {
-                    title: Title,
-                    description: Description,
-                    urlToImage: urlsList,
-                    source: SourceObj,
-                    created:timestampStr,
-                    dateStr:dateStr,
-                    embedUrl:embedUrl
+        }
+        urlsList.push(embedUrl);
+
+        try {
+            const sourceObj = {
+                id: uuidv4(),
+                name: sourceName
+            };
+
+            await addDoc(collection(db, "articles"), {
+                title,
+                description,
+                urlToImage: urlsList,
+                source: sourceObj,
+                created: Timestamp.now(),
+                dateStr: dateString,
+                embedUrl
             });
-            console.log("uploade at"+urlsList);
-            console.log("uploade at"+urlsList.length);
-            console.log("Document written with ID: ", docRef.id);
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
-          
+            console.log("Document added successfully");
+        } catch (error) {
+            console.error("Error adding document: ", error);
+        }
+    };
 
-    }
-
-   
-    useEffect(()=>{
-        
-    })
- 
-    // useEffect(()=>{
-    //     listAll(ref(imageDb,"files")).then(imgs=>{
-    //         console.log(imgs)
-    //         imgs.items.forEach(val=>{
-    //             getDownloadURL(val).then(url=>{
-    //                 setImgUrl(data=>[...data,url])
-    //             })
-    //         })
-    //     })
-    // },[])
+    useEffect(() => {
+        handleDate();
+    }, []);
 
     return (
-        <div>
-            <center>
-                <form style={{ marginTop: "200px" }}
-                    onSubmit={(event) => { sub(event) }}>
-                   <label>News Title</label> <input type="text" placeholder="News Title"
-                        onChange={(e) => { Settitle(e.target.value) }} />
-                    <br /><br />
-                    <label>News Description</label>  
-                    
-                    <textarea rows={10} cols={30} 
-                     onChange={(e) => { Setdescription(e.target.value)}}></textarea>
-                  <br/>
-                   
-                
-                    <label>News Source Name</label>    <input type="text" placeholder="news source Name"
-                        onChange={(e) => { SetsourcesName(e.target.value) }} />
-                    <br /><br />
-                    <label>Youtube Video Link</label>    <input type="text" placeholder="youtube video url"
-                        onChange={(e) => { SetembedUrl(e.target.value) }} />
-                    <br /><br />
-                    <label>Date Program 4-9-2024</label>    <input type="text" placeholder="date string"
-                        onChange={(e) => { SetdateString(e.target.value) }} />
-                    <br /><br />
-                    <input type="file" multiple  accept="*/*" onChange={(e)=>setImg(e.target.files)} /> 
-                
-                <br/>
-               
-                    <br /><br />
-                    <button type="submit">Submit</button>
-                </form>
-            </center>
+        <div className="container-add">
+            <form className="form" onSubmit={handleSubmit}>
+                <label className="label">News Title</label> 
+                <input className="input oneline" type="text" placeholder="News Title" onChange={(e) => setTitle(e.target.value)} />
+                <br /><br />
+                <label className="label">News Description</label>  
+                <textarea className="textarea oneline" rows={5} cols={30} onChange={(e) => setDescription(e.target.value)}></textarea>
+                <br /><br />
+                <label className="label">News Source Name</label>    
+                <input className="input" type="text" placeholder="News Source Name" onChange={(e) => setSourceName(e.target.value)} />
+                <br /><br />
+                <label className="label">Youtube Video Link</label>    
+                <input className="input" type="text" placeholder="Youtube Video URL" onChange={(e) => setEmbedUrl(e.target.value)} />
+                <br /><br />
+                <label className="label">Date Program 4-9-2024</label>    
+                <input type="text" placeholder="date string"
+                        onChange={(e) => { setDateString(e.target.value) }} />
+                <br /><br />
+                <input className="file-input" type="file" multiple accept="*/*" onChange={handleFileChange} /> 
+                <br /><br />
+                <button className="submit-button" type="submit">Submit</button>
+                <br /><br />
+            </form>
         </div>
     );
-}
- 
-export default AddArticles;
+};
+
+export default AddArticle;
