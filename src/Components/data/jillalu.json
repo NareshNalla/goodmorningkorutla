@@ -1,0 +1,25 @@
+{
+    "districts": [
+        {
+            "name": "Jagityal",
+            "mandals": [
+                {
+                    "name": "Mallapur",
+                    "villages": ["Chittapur", "Dharmaram", "Gorrepally", "Gundam Pally", "Kustapoor", "Mallapur", "Moglipet", "Muthyampet", "Nadikuda", "New Dhamrajpally", "Obulapur", "Old Dhamrajpally", "Raghavapet", "Rathnapur", "Regunta", "Satharam", "Sirpoor", "Valgondla", "Vempally", "Venkatraopet"]
+                },
+                {
+                    "name": "Korutla",
+                    "villages": ["Ailapur", "Chinnametpally", "Gumlapur", "Joganpalli", "Kallur", "Korutla", "Madhapur", "Mohan Rao Pet", "Nagulapet", "Paidimadugu", "Peddapur", "Sangam", "Sarparajpally", "Venkatapur", "Yakeenpur", "Yousuf Nagar"]
+                },
+                {
+                    "name": "Ibrahimpatnam",
+                    "villages": ["Ammakkapet", "Bandalingapur", "Bardipur", "Dabba", "Eradandi", "Errapur", "Fakir Kondapur", "Gudur", "Ibrahimpatnam", "Keshavapur", "Kojan Kothur", "Komatikondapur", "Maidpally", "Mularampur", "Rajeshwar Raopet", "Shathakkapally", "Thimmapur", "Varshakonda", "Vemulakurthy", "Yamapur"]
+                },
+                {
+                    "name": "Metpally",
+                    "villages": ["Arapet", "Athmakur", "Athmanagar", "Chintalpet", "Chowlamaddi", "Jaggasagar", "Konaraopet", "Kondrikarla", "Metlachittapur", "Metpalli", "Ramalachakkapet", "Rangaraopet", "Vellulla", "Vempet", "Venkatraopet"]
+                }
+            ]
+        }
+    ]
+}

@@ -2,7 +2,7 @@
 import React from "react";
 import { imageDb } from "../firebase";
 import ImageGallery from 'react-image-gallery';
-import { NavLink } from 'react-router-dom';
+import { NavLink , Link} from 'react-router-dom';
 import './NewsItem.css'
  
 const _renderVideo = (item) => {
@@ -77,13 +77,9 @@ function NewsItem(props) {
               ))}
             </div>
         
-            <a 
-            href={newsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary btn-sm me-2 mb-2">
-            <small>Read More...</small>
-            </a>
+            <Link to={`/news/${encodeURIComponent(title)}/${encodeURIComponent(dateString)}`} className="btn btn-primary btn-sm me-2 mb-2">
+              <small>Read More...</small>
+            </Link>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
-import Collapse from 'react-bootstrap/Collapse';
+import './NavBar.css';
 
 function NavBar2() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,14 +21,15 @@ function NavBar2() {
   }, []);
 
   return (
-    <Navbar bg="light" expand="lg" className="shadow-sm">
+    <Navbar expand="lg" className="shadow-sm" style={{ backgroundColor: '#E75480' }}>
       <Container fluid>
-        <Navbar.Toggle aria-controls="navbarNav" onClick={toggleMenu} />
+        <Navbar.Toggle aria-controls="navbarNav" onClick={toggleMenu} className={isOpen ? "collapsed-white" : ""} />
         <Navbar.Collapse in={isOpen} id="navbarNav" className="justify-content-end">
           <Nav className="me-auto" style={{ paddingLeft: '15px' }}>
             <Nav.Link as={Link} to="/" onClick={closeMenu}>Home</Nav.Link>
-            {/* Add your other menu items here */}
-            <Nav.Link as={Link} to="/contact" onClick={closeMenu}>Contact</Nav.Link>
+            <Nav.Link as={Link} to="/all" onClick={closeMenu}>All Posts</Nav.Link>
+            <Nav.Link as={Link} to="/maps" onClick={closeMenu}>Maps</Nav.Link>
+            <Nav.Link as={Link} to="/register" onClick={closeMenu}>Register</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

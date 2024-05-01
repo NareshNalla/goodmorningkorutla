@@ -1,0 +1,39 @@
+/* RegistrationCount.css */
+
+.registration-count-container {
+    text-align: justify;
+  }
+  
+  .registration-count {
+    font-size: 24px;
+    color: #FF1493; /* Custom color for count text */
+  }
+  
+  .registration-count-text {
+    display: inline-block;
+    font-size: 16px;
+  }
+  
+  .register-button {
+    padding: 10px 20px;
+    background-color: #4296f0; /* Default color for button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+  }
+  
+  .register-button:hover {
+    background-color: #0056b3; /* Darker color on hover */
+  }
+  .gradient-text {
+    background-image: linear-gradient(to right,  green, orange, purple, pink);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+    .gradient-text-blue {
+    background-image: linear-gradient(to right,  blue, rgb(109, 109, 246), rgb(52, 187, 224));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }

@@ -1,9 +1,11 @@
 import { React, useState, useEffect } from "react";
 import NewsItem from "./NewsItem";
+import RegistrationCount from './RegistrationCount';
+import './RegistrationCount.css';
 import Image from "../Images/News1.jpg";
 import InfiniteScroll
     from "react-infinite-scroll-component";
-import { collection,addDoc, getDocs } from "firebase/firestore";
+import { collection,addDoc, getDocs, query, orderBy, limit } from "firebase/firestore";
 
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import {db, imageDb} from '../firebase';
@@ -11,6 +13,9 @@ import {db, imageDb} from '../firebase';
 import ImageGallery from 'react-image-gallery';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+
+import { Link} 
+    from "react-router-dom";
 
 
 
@@ -75,24 +80,27 @@ function Homepage(props) {
     const jsonUrlsList = JSON.stringify({});
 
 
- 
- let resultNews =  async () => {
-    console.log("articles, newData");
-    await getDocs(collection(db, "articles"))
-        .then((querySnapshot)=>{              
-            querySnapshot.forEach(element => {
-                var data = element.data();
-               // setArticles(parsedData.articles);
-                setArticles(arr => [...arr, data]);
-                setTotalResults(data.length);
-                console.log('sds '+data)
-    
-            });
-           // setTodos(newData);                
-          
-        });
+    let resultNews = async () => {
+    try {
+    let  q = query(
+        collection(db, "articles"),
+        orderBy("created", "desc"),
+        limit(3)
+    );
 
+      const snapshot = await getDocs(q);
+      const lastThreeArticles = [];
+      const newData = snapshot.docs.map(doc => doc.data());
+          setArticles((prevArticles) => [...prevArticles, ...newData]);
+         console.log("newData  "+newData);
+         console.log("snapshot.size "+snapshot.size);
+          setTotalResults(snapshot.size);
+
+  } catch (error) {
+      console.error("Error fetching articles:", error.message);
+  }
 }
+
 function createImageObject(originalUrl, thumbnailUrl) {
     return {
       original: originalUrl,
@@ -124,36 +132,9 @@ const images1 = [
       },
 ];
 
-
-
-    let fetchData = async () => {
-        const url =
-`https://newsapi.org/v2/top-headlines?country=in&category=${category}&page=${page + 1
-            }&apiKey=ecfaf9eaaa8d40a5b5d769210f5ee616`;
-        setPage(page + 1);
-        let data = await fetch(url);
-        let parsedData = await data.json();
-        setArticles(articles.concat(parsedData.articles));
-    };
     
     return (
-        <InfiniteScroll
-            //This is important field to render the next data
-            dataLength={articles.length}
-            next={fetchData}
-            hasMore={
-                articles.length < totalResults
-            }
-            loader={
-                <h4 className="text-center">
-                    Loading...
-                </h4>}
-            endMessage={
-                <p style={{ textAlign: "center" }}>
-                    <b>Yay! You have seen it all</b>
-                </p>
-            }
-        >
+       
             <div className="container my-3">   
       {/* Main content */}
       <div className="row">
@@ -172,13 +153,20 @@ const images1 = [
             </div>
       <div className="row justify-content-center">
         <div className="col-md-12">
-          <p>Welcome to Good Morning Korutla, Website. You can find all information about how our Leader Dr. Sanjay Kalwakuntla is doing this program.</p>
+          <p>Welcome to Good Morning Korutla, Website. You can find all information about how our Leader Dr. Sanjay Kalwakuntla garu is doing this program.</p>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <a href="https://chat.whatsapp.com/CfzdtNLV3kUD3vakepzVCd" className={true ? "float sticky" : "float"} target="_blank" style={{ textDecoration: 'none' }}>
   <span style={{ color: 'white', background: 'green', borderRadius: '5px', padding: '5px 10px' }}>Join WhatsApp Group</span>
   <FontAwesomeIcon icon={faWhatsapp} className="my-float" size="3x" style={{ color: 'white', background: 'green', borderRadius: '50%', padding: '10px', marginLeft: '10px', width: '60px', height: '60px', lineHeight: '60px', textAlign: 'center' }} />
 </a>
         </div>
+        <h1>
+        <span className="gradient-text">I Support to KSR.</span>
+        </h1>
+      <div className="registration-count-container">
+        <RegistrationCount />
+      </div>
+      <Link to="/register"><button className="register-button">Register</button></Link>
         </div>
       </div>
       
@@ -201,7 +189,7 @@ const images1 = [
     </div>
            
    
-        </InfiniteScroll>
+  
     );
 }
  

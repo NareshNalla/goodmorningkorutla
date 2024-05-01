@@ -1,51 +1,54 @@
-  /* add articles */
-  .container-add {
+.container-add {
     display: flex;
     justify-content: center;
-}
-
-.form {
+  }
+  
+  .form {
     width: 60%;
     margin-top: 20px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
-}
-
-.label {
+    background-color: #f9f9f9; /* Added */
+  }
+  
+  .label {
     font-weight: bold;
     color: #333;
-}
-.label::after {
+  }
+  .label::after {
     content: ":";
     margin-left: 5px;
     margin-right: 5px;
-}
-
-.input,
-.textarea {
+  }
+  
+  .input,
+  .textarea {
     padding: 8px;
     margin-bottom: 2px;
     border: 1px solid #ccc;
     border-radius: 1px;
-}
-.oneline{
-    width: 100%;
-}
-
-.file-input {
+    width: 100%; /* Adjusted */
+  }
+  
+  .oneline {
+    width: calc(100% - 18px); /* Adjusted */
+  }
+  
+  .file-input {
     margin-bottom: 10px;
-}
-
-.submit-button {
+  }
+  
+  .submit-button {
     padding: 10px 20px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.submit-button:hover {
+  }
+  
+  .submit-button:hover {
     background-color: #0056b3;
-}
+  }
+  

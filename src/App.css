@@ -1,27 +1,4 @@
 /* App.css */
-.custom-navbar {
-  background-color: #7fccff;
-  padding: 10px 20px;
-}
-
-.brand-heading {
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
-  text-decoration: none;
-}
-
-.nav-link,
-.dropdown-item {
-  color: #333;
-  text-decoration: none;
-  margin: 0 15px;
-}
-
-.nav-link:hover,
-.dropdown-item:hover {
-  color: #fff;
-}
 
 .custom-carousel {
   margin-top: 20px;
@@ -170,7 +147,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.submit-button:hover {
   background-color: #2980b9;
 }
 .rbb-ImageGallery {
@@ -188,10 +165,6 @@ button:hover {
 /* 
 homeslides */
 
-.container-fluid{
-  height:100px;
-  background-color:red
-  }
   .content-slides{
     width: 1024px;
     height: 400px; /* Maintain aspect ratio */
@@ -260,6 +233,78 @@ homeslides */
       right: 60px;
       z-index: 1001;
     }
+     /* tables */
     
+    .table-container {
+      overflow-x: auto;
+    }
     
+    .responsive-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .responsive-table th,
+    .responsive-table td {
+      border: 1px solid #ddd;
+      padding: 2px;
+      text-align: left;
+    }
+    
+    @media screen and (max-width: 500px) {
+      .responsive-table {
+        overflow-x: auto;
+        display: block;
+      }
+    
+      .responsive-table thead,
+      .responsive-table tbody,
+      .responsive-table th,
+      .responsive-table td,
+      .responsive-table tr {
+        display: block;
+      }
+    
+      .responsive-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+    
+      .responsive-table tr {
+        margin-bottom: 15px;
+        border: none;
+      }
+    
+      .responsive-table td {
+        border: none;
+        border-bottom: 1px solid #ddd;
+        position: relative;
+        padding-left: 50%;
+      }
+    
+      .responsive-table td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-label);
+        font-weight: bold;
+      }
+    }
+    .image-mapper-container {
+      position: relative; /* Necessary for absolute positioning of child elements */
+      width: 100%; /* Ensures container fills available space */
+    }
+    #img-mapper {
+      max-width: 100% !important;  
+    }
+    .gradient-text {
+      background-image: linear-gradient(to right, red, green, blue, yellow, orange, purple, pink);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
   
