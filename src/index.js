@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+import { HelmetProvider } from 'react-helmet-async';
 <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <HelmetProvider>
   <App />
+  </HelmetProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

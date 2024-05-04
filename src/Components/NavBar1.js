@@ -22,7 +22,7 @@ function NavBar1() {
 
   // Define dynamic styles for the navbar
   const navStyle = {
-    backgroundColor: isScrolled ? "#FFC0CB" : "transparent", // Light pink background color when scrolled
+    backgroundColor: isScrolled ? "white" : "white", // Light pink background color when scrolled
     boxShadow: isScrolled ? "0 2px 4px rgba(0, 0, 0, 0.1)" : "none", // Add shadow when scrolled
     transition: "background-color 0.3s, box-shadow 0.3s", // Smooth transition effect
     position: isScrolled ? "fixed" : "static", // Make navbar fixed on scroll

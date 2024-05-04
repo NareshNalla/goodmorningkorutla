@@ -14,11 +14,14 @@ import Mapper from "./Components/Mapper";
 import Metpally from "./Components/map/Metpally"
 import RegistrationForm from "./Components/RegistrationForm";
 import NewsDetailPage from "./Components/NewsDetailPage";
-import { HelmetProvider } from 'react-helmet-async';
+
+import { Helmet } from 'react-helmet-async';
 
 
 
 import imgmapjpg from './Images/korutla_const_map.jpg';
+
+import metaImg from "./Images/sanjay_win_smile.jpg";
 
 
 
@@ -35,9 +38,20 @@ const urlsList = [];
 
 function App() {
     return (
-        <HelmetProvider>
+      
         <>
             <div className="App">
+            <Helmet>
+                <meta name="description" content="Good Morning Korutla Program is initiated by Dr. K. Sajay Rao , MLA Korutla " />
+                <meta name="keywords" content="GMK , Korutla , Metpally" />
+                <meta property="og:title" content="Good Morning Korutla" />
+                <meta property="og:description" content="Good Morning Korutla Program is initiated by Dr. K. Sajay Rao , MLA Korutla " />
+                <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1, shrink-to-fit=no"
+                />
+                 <meta property="og:image" content={metaImg} />
+            </Helmet>
                 <BrowserRouter>
                     <NavBar1 />
                     <NavBar2 />
@@ -101,7 +115,6 @@ function App() {
                 
             </div>
         </>
-        </HelmetProvider>
     );
 }
 

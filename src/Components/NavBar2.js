@@ -21,7 +21,7 @@ function NavBar2() {
   }, []);
 
   return (
-    <Navbar expand="lg" className="shadow-sm" style={{ backgroundColor: '#E75480' }}>
+    <Navbar expand="lg" className="shadow-sm" style={{ backgroundColor: '#02599c' }}>
       <Container fluid>
         <Navbar.Toggle aria-controls="navbarNav" onClick={toggleMenu} className={isOpen ? "collapsed-white" : ""} />
         <Navbar.Collapse in={isOpen} id="navbarNav" className="justify-content-end">

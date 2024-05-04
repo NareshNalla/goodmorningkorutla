@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import NewsItem from "./NewsItem";
-import Image from "../Images/News1.jpg";
 import InfiniteScroll
     from "react-infinite-scroll-component";
 import { collection, query, orderBy, limit, startAfter, getDocs } from "firebase/firestore";
