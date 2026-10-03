@@ -5,13 +5,14 @@ import News from "./Components/News";
 import ContactForm from "./Components/ContactForm";
 import AddArticles from "./Components/AddArticles";
 import AddArticle from "./Components/AddArticle";
+import KaryakarthaApp from "./karyakartha/KaryakarthaApp";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import "react-image-gallery/styles/css/image-gallery.css";
 
-import { BrowserRouter, Route, Routes } 
+import { BrowserRouter, Route, Routes }
     from "react-router-dom";
- 
+
 function App() {
     const images = [
         {
@@ -30,14 +31,14 @@ function App() {
             thumbnail: 'https://firebasestorage.googleapis.com/v0/b/news-666.appspot.com/o/files%2Fdbd317fa-eca4-4183-b924-b3ce6d20a8e3?alt=media&token=63ad88c0-c429-4ff3-99d6-6ff4e8b7ba86',
           },
     ];
-    
+
     return (
         <>
             <div className="App">
                 <BrowserRouter>
                     <NavBar1 />
                     <NavBar2 />
- 
+
                     <div className="container">
                         <div className="row">
                             <div className="col-md">
@@ -77,18 +78,22 @@ function App() {
                                         element={
                                             <AddArticle />}
                                     />
-                                   
+
                                     <Route path="/contact"
                         element={<ContactForm />} />
+                                    <Route
+                                        path="/karyakartha/*"
+                                        element={<KaryakarthaApp />}
+                                    />
                                 </Routes>
                             </div>
                         </div>
                     </div>
                 </BrowserRouter>
-               
+
             </div>
         </>
     );
 }
- 
+
 export default App;
