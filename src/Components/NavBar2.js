@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
- 
+
 function NavBar2() {
     return (
         <div>
-            <nav className="navbar navbar-expand-lg 
+            <nav className="navbar navbar-expand-lg
                 bg-body-tertiary">
                 <div className="container-fluid ">
                     <button
@@ -57,6 +57,11 @@ function NavBar2() {
                                     contact
                                 </Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={`/karyakartha/login`}>
+                                    Karyakartha
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -64,5 +69,5 @@ function NavBar2() {
         </div>
     );
 }
- 
+
 export default NavBar2;
