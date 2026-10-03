@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# Good Morning Korutla
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React site for the Good Morning Korutla program. The home page lists posts. A second page is a contact form with name, email, and message fields.
 
-## Available Scripts
+## Run it locally
 
-In the project directory, you can run:
+Install dependencies, then start the dev server:
 
-### `npm start`
+```bash
+npm install
+npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [http://localhost:3000](http://localhost:3000).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Deployment
 
-### `npm test`
+GitHub Pages is already enabled. The published site comes from the `gh-pages` branch:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+https://nareshnalla.github.io/goodmorningkorutla/
 
-### `npm run build`
+`package.json` sets that address as `homepage`. `npm run deploy` builds the app and publishes the `build` folder with the `gh-pages` package.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+That published copy is an older build. Opening the GitHub Pages URL shows the header and the Home and contact links, without the post list. Use `npm start` to see the current home page and contact page. The screenshots below are from that local run.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Data
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Posts on the home page are read from the existing Firebase project. The web configuration is already in `src/firebase.js`.
 
-### `npm run eject`
+## Screens
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Home:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Home page with the site header, welcome text, and a post](docs/screenshots/home.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Contact:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Contact page with name, email, and message fields](docs/screenshots/contact.png)
