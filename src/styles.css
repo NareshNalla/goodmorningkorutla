@@ -1,13 +1,13 @@
 /* Good Morning Korutla — v2 styles */
 :root {
-  --brand: #b03a2e;
-  --brand-dark: #7e241b;
-  --accent: #f5b041;
+  --brand: #d81b60;
+  --brand-dark: #9c1347;
+  --accent: #f9a8d4;
   --ink: #1f2937;
   --muted: #6b7280;
-  --bg: #faf7f2;
+  --bg: #fdf4f8;
   --card: #ffffff;
-  --line: #e9e2d6;
+  --line: #f2d7e3;
 }
 * { box-sizing: border-box; }
 body {
@@ -88,8 +88,8 @@ a:hover { text-decoration: underline; }
   display: inline-block; padding: 3px 12px; border-radius: 999px;
   font-size: .75rem; font-weight: 700; letter-spacing: .4px;
 }
-.badge.morning { background: #fef3c7; color: #92400e; }
-.badge.evening { background: #e0e7ff; color: #3730a3; }
+.badge.morning { background: #fce7f3; color: #9d174d; }
+.badge.evening { background: #fbcfe8; color: #831843; }
 .post-card h2 { margin: 4px 0 8px; font-size: 1.25rem; line-height: 1.4; }
 .post-card h2 a { color: var(--ink); }
 .post-card h2 a:hover { color: var(--brand); }
