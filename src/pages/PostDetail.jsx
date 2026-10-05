@@ -34,9 +34,6 @@ export default function PostDetail() {
     <div className="wrap">
       <article className="post-detail">
         <div className="post-meta">
-          <span className={`badge ${post.slot || "morning"}`}>
-            {(post.slot || "morning") === "morning" ? "☀️ Morning" : "🌙 Evening"}
-          </span>
           <span>{formatDate(post.publishedAt)}</span>
           {post.category && <span>· {post.category}</span>}
         </div>

@@ -50,12 +50,10 @@ export default function AdminDashboard() {
       </div>
 
       <div className="page-card">
-        <h2 style={{ marginTop: 0 }}>Daily rhythm</h2>
+        <h2 style={{ marginTop: 0 }}>Publishing</h2>
         <p>
-          ☀️ Publish the <strong>morning edition</strong> with today's program,
-          and the 🌙 <strong>evening edition</strong> with the day's round-up.
-          Use the Morning / Evening tag on each post — the home page lets
-          readers filter by edition.
+          Publish fresh updates whenever news comes in — morning, evening, or
+          any time of day. Each post appears on the home page instantly, newest first.
         </p>
       </div>
 
@@ -70,7 +68,6 @@ export default function AdminDashboard() {
               <div>
                 <div className="t">{p.title}</div>
                 <div className="m">
-                  {p.slot === "evening" ? "🌙 Evening" : "☀️ Morning"} ·{" "}
                   {formatDate(p.publishedAt)} · {p.status}
                 </div>
               </div>

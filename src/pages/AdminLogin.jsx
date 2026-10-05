@@ -50,7 +50,7 @@ export default function AdminLogin() {
     <div className="wrap">
       <div className="admin-box">
         <h1>Admin sign-in</h1>
-        <p>Sign in to publish the daily morning &amp; evening updates.</p>
+        <p>Sign in to publish daily updates.</p>
         {error && <div className="error">{error}</div>}
         <form onSubmit={login}>
           <div className="field">

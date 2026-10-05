@@ -15,18 +15,10 @@ export default function Program() {
         </p>
       </div>
       <div className="page-card">
-        <h1>How daily publishing works</h1>
-        <p>
-          ☀️ <strong>Morning edition</strong> — the day's program: visits,
-          meetings and events planned for today.
-        </p>
-        <p>
-          🌙 <strong>Evening edition</strong> — the day's round-up: what happened,
-          photos and key announcements.
-        </p>
+        <h1>How publishing works</h1>
         <p>
           Updates are published by the program team through the admin panel —
-          fresh content, twice a day, every day.
+          fresh content whenever news comes in, any time of day.
         </p>
       </div>
     </div>

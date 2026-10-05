@@ -15,7 +15,6 @@ export default function Composer() {
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [slot, setSlot] = useState("morning");
   const [category, setCategory] = useState("");
   const [youtubeUrl, setYoutubeUrl] = useState("");
   const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
@@ -32,7 +31,6 @@ export default function Composer() {
         const p = snap.data();
         setTitle(p.title || "");
         setBody(p.body || "");
-        setSlot(p.slot || "morning");
         setCategory(p.category || "");
         setYoutubeUrl(p.youtubeUrl || "");
         setExistingImages(p.images || []);
@@ -63,13 +61,10 @@ export default function Composer() {
     try {
       const uploaded = await uploadImages();
       const [y, m, d] = date.split("-").map(Number);
-      // publish time: morning 7 AM, evening 7 PM IST
-      const hour = slot === "morning" ? 7 : 19;
-      const publishedAt = Timestamp.fromDate(new Date(y, m - 1, d, hour, 0, 0));
+      const publishedAt = Timestamp.fromDate(new Date(y, m - 1, d, 9, 0, 0));
       const data = {
         title: title.trim(),
         body: body.trim(),
-        slot,
         category: category.trim(),
         youtubeUrl: youtubeUrl.trim(),
         images: [...existingImages, ...uploaded],
@@ -98,13 +93,6 @@ export default function Composer() {
         <h1>{isEdit ? "Edit post" : "New daily post"}</h1>
         {error && <div className="error">{error}</div>}
         <form onSubmit={save}>
-          <div className="field">
-            <label>Edition</label>
-            <select value={slot} onChange={(e) => setSlot(e.target.value)}>
-              <option value="morning">☀️ Morning edition</option>
-              <option value="evening">🌙 Evening edition</option>
-            </select>
-          </div>
           <div className="field">
             <label>Date</label>
             <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />

@@ -24,9 +24,6 @@ export default function PostCard({ post }) {
     <article className="post-card">
       <div className="post-body">
         <div className="post-meta">
-          <span className={`badge ${post.slot || "morning"}`}>
-            {(post.slot || "morning") === "morning" ? "☀️ Morning" : "🌙 Evening"}
-          </span>
           <span>{formatDate(post.publishedAt)}</span>
           {post.category && <span>· {post.category}</span>}
         </div>

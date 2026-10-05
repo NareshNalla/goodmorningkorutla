@@ -12,7 +12,6 @@ export default function Navbar() {
           <NavLink to="/" end>Home</NavLink>
           <NavLink to="/program">Program</NavLink>
           <NavLink to="/mla">Our MLA</NavLink>
-          <NavLink to="/admin">Admin</NavLink>
         </nav>
       </div>
     </header>
