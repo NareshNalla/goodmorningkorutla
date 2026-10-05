@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, query, where, orderBy, limit, getDocs } from "firebase/firestore";
+import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import PostCard from "../components/PostCard";
 
@@ -18,14 +18,14 @@ export default function Home() {
     (async () => {
       setLoading(true);
       try {
-        const cons = [
-          where("status", "==", "published"),
-          orderBy("publishedAt", "desc"),
-          limit(40),
-        ];
-        if (filter !== "all") cons.splice(1, 0, where("slot", "==", filter));
-        const snap = await getDocs(query(collection(db, "posts"), ...cons));
-        setPosts(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+        // Single-field query (no composite index needed); filter in code.
+        const snap = await getDocs(
+          query(collection(db, "posts"), orderBy("publishedAt", "desc"), limit(60))
+        );
+        let list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+        list = list.filter((p) => p.status === "published");
+        if (filter !== "all") list = list.filter((p) => (p.slot || "morning") === filter);
+        setPosts(list);
       } catch (e) {
         console.error(e);
       }
