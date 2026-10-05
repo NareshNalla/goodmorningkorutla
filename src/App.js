@@ -5,7 +5,6 @@ import News from "./Components/News";
 import ContactForm from "./Components/ContactForm";
 import AddArticles from "./Components/AddArticles";
 import AddArticle from "./Components/AddArticle";
-import KaryakarthaApp from "./karyakartha/KaryakarthaApp";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -81,10 +80,6 @@ function App() {
 
                                     <Route path="/contact"
                         element={<ContactForm />} />
-                                    <Route
-                                        path="/karyakartha/*"
-                                        element={<KaryakarthaApp />}
-                                    />
                                 </Routes>
                             </div>
                         </div>
