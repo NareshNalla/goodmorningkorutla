@@ -1,38 +1,36 @@
-# Good Morning Korutla
+# Good Morning Korutla — v2 (rebuild)
 
-A React site for the Good Morning Korutla program. The home page lists posts. A second page is a contact form with name, email, and message fields.
+Fresh rebuild of the Good Morning Korutla daily news site.
 
-## Run it locally
+## What's new in v2
+- **Daily publishing flow**: admin sign-in → dashboard → composer for the
+  ☀️ morning and 🌙 evening editions (headline, Telugu/English story, photos,
+  YouTube video, date).
+- **Public site**: home feed with Morning/Evening filter, post detail pages,
+  Program info page, and an Our MLA page (Korutla constituency).
+- **Stack**: Vite + React 18 + React Router + Firebase (Firestore, Storage, Auth).
+- Reuses the existing Firebase project `news-666`, so all current data carries over.
+- Old `articles` were migrated into the new `posts` collection.
 
-Install dependencies, then start the dev server:
-
-```bash
+## Run locally
+```
 npm install
-npm start
+npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+## Build for Hostinger (static hosting)
+```
+npm run build   # outputs dist/
+```
+Upload the contents of `dist/` to `public_html`.
 
-## Deployment
+## Admin setup (one-time)
+1. In the [Firebase console](https://console.firebase.google.com/) open project
+   `news-666` → Authentication → add an admin user (email + password).
+2. Apply `firestore.rules` (Firestore Database → Rules) so the public can read
+   published posts and only signed-in admins can write.
+3. Open `https://goodmorningkorutla.in/admin` and sign in.
 
-GitHub Pages is already enabled. The published site comes from the `gh-pages` branch:
-
-https://nareshnalla.github.io/goodmorningkorutla/
-
-`package.json` sets that address as `homepage`. `npm run deploy` builds the app and publishes the `build` folder with the `gh-pages` package.
-
-That published copy is an older build. Opening the GitHub Pages URL shows the header and the Home and contact links, without the post list. Use `npm start` to see the current home page and contact page. The screenshots below are from that local run.
-
-## Data
-
-Posts on the home page are read from the existing Firebase project. The web configuration is already in `src/firebase.js`.
-
-## Screens
-
-Home:
-
-![Home page with the site header, welcome text, and a post](docs/screenshots/home.png)
-
-Contact:
-
-![Contact page with name, email, and message fields](docs/screenshots/contact.png)
+## Deploy
+The `rebuild` branch holds this v2 source. When approved it can replace `main`,
+and `npm run build` output goes to Hostinger `public_html` as before.
