@@ -22,20 +22,26 @@ function News(props) {
 //     };
     
  
+ // parse "M-D-YYYY" date strings for newest-first ordering
+ const parsePostDate = (s) => {
+    const m = /^(\d{1,2})-(\d{1,2})-(\d{4})$/.exec((s || "").trim());
+    if (!m) return 0;
+    const d = new Date(+m[3], +m[1] - 1, +m[2]);
+    return isNaN(d.getTime()) ? 0 : d.getTime();
+};
+
  let resultNews =  async () => {
     console.log("articles, newData");
     await getDocs(collection(db, "articles"))
-        .then((querySnapshot)=>{              
+        .then((querySnapshot)=>{
+            const all = [];
             querySnapshot.forEach(element => {
-                var data = element.data();
-               // setArticles(parsedData.articles);
-                setArticles(arr => [...arr, data]);
-                setTotalResults(data.length);
-                console.log('sds '+data)
-    
+                all.push(element.data());
             });
-           // setTodos(newData);                
-          
+            // newest first, like a feed
+            all.sort((a, b) => parsePostDate(b.dateStr) - parsePostDate(a.dateStr));
+            setArticles(all);
+            setTotalResults(all.length);
         })
 }
 
