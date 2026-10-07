@@ -1,4 +1,5 @@
 import React from "react";
+import './App.css';
 import Header from "./Components/Header";
 import ProfileBar from "./Components/ProfileBar";
 import News from "./Components/News";
