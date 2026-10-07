@@ -33,6 +33,17 @@ function News() {
         resultNews();
     }, []);
 
+    // Header/footer deep links: #events opens the Events tab, #updates opens All Updates
+    useEffect(() => {
+        const onHash = () => {
+            if (window.location.hash === "#events") setTab("events");
+            else if (window.location.hash === "#updates") setTab("all");
+        };
+        onHash();
+        window.addEventListener("hashchange", onHash);
+        return () => window.removeEventListener("hashchange", onHash);
+    }, []);
+
     // An "Event" = a post where the MLA attends an event / meeting / visit.
     const EVENT_WORDS = [
         "పర్యట", "హాజర", "సమావేశ", "కార్యక్రమ", "ప్రారంభ", "పాల్గొన",
@@ -48,8 +59,8 @@ function News() {
     const shown = tab === "events" ? events : articles;
 
     return (
-        <section className="gmk-feed" id="feed">
-            <div className="gmk-feed-tabs" role="tablist">
+        <section className="gmk-feed" id="updates">
+            <div className="gmk-feed-tabs" id="events" role="tablist">
                 <button type="button" role="tab" aria-selected={tab === "all"} className={"gmk-tab" + (tab === "all" ? " active" : "")} onClick={() => setTab("all")}>
                     📰 All Updates
                 </button>

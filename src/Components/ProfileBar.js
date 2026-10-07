@@ -3,7 +3,7 @@ import React from "react";
 // Slim profile strip (feed-style, not a portfolio hero).
 function ProfileBar() {
     return (
-        <section className="gmk-profilebar">
+        <section className="gmk-profilebar" id="home">
             <img className="gmk-profilebar-avatar" src="/mla.jpg" alt="Dr. Sanjay Kalvakuntla" />
             <div className="gmk-profilebar-info">
                 <h1 className="gmk-profilebar-name">Good Morning Korutla</h1>
