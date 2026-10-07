@@ -67,6 +67,7 @@ function News() {
                         dateString={element.dateStr}
                         docId={element.id}
                         likes={element.likes || 0}
+                        tweetUrl={element.tweetUrl || ""}
                         sourceName={element.source ? element.source.name : ""}
                     />
                 ))}

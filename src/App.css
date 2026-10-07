@@ -216,3 +216,6 @@ button:hover {
 .gmk-feed-text { color:#333; white-space:pre-line; }
 .gmk-feed-img { width:100%; border-radius:12px; margin-top:8px; }
 .gmk-feed-source { color:#999; font-size:12px; margin-top:8px; }
+
+/* embedded official X post */
+.gmk-tweet { margin: 10px auto 4px !important; max-width: 520px; width: 100%; }
