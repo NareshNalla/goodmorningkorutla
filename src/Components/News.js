@@ -1,124 +1,115 @@
 import { React, useState, useEffect } from "react";
-import NewsItem from "./NewsItem";
-import Image from "../Images/News1.jpg";
-import InfiniteScroll
-    from "react-infinite-scroll-component";
-import { collection, addDoc, getDocs } from "firebase/firestore";
-import {db} from '../firebase';
- 
-function News(props) {
-    let category = props.category;
+import NewsCard from "./NewsCard";
+import SocialCard from "./SocialCard";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from '../firebase';
+
+function News() {
     let [articles, setArticles] = useState([]);
-    let [totalResults, setTotalResults] = useState(0);
-    let [page, setPage] = useState(0);
- 
-//     let resultNews = async () => {
-//         const url =
-// `https://newsapi.org/v2/top-headlines?country=in&category=${category}&page=${page}&apiKey=ecfaf9eaaa8d40a5b5d769210f5ee616`;
-//         let data = await fetch(url);
-//         let parsedData = await data.json();
-//         setArticles(parsedData.articles);
-//         setTotalResults(parsedData.totalResults);
-//     };
-    
- 
- // parse "M-D-YYYY" date strings for newest-first ordering
- const parsePostDate = (s) => {
-    const m = /^(\d{1,2})-(\d{1,2})-(\d{4})$/.exec((s || "").trim());
-    if (!m) return 0;
-    const d = new Date(+m[3], +m[1] - 1, +m[2]);
-    return isNaN(d.getTime()) ? 0 : d.getTime();
-};
 
- let resultNews =  async () => {
-    console.log("articles, newData");
-    await getDocs(collection(db, "articles"))
-        .then((querySnapshot)=>{
-            const all = [];
-            querySnapshot.forEach(element => {
-                all.push(element.data());
-            });
-            // newest first, like a feed
-            all.sort((a, b) => parsePostDate(b.dateStr) - parsePostDate(a.dateStr));
-            setArticles(all);
-            setTotalResults(all.length);
-        })
-}
-
-useEffect(()=>{
-    console.log('useEffect ');
-    resultNews();
-    console.log('useEffect end ');
-}, [])
-
-    let fetchData = async () => {
-        const url =
-`https://newsapi.org/v2/top-headlines?country=in&category=${category}&page=${page + 1
-            }&apiKey=ecfaf9eaaa8d40a5b5d769210f5ee616`;
-        setPage(page + 1);
-        let data = await fetch(url);
-        let parsedData = await data.json();
-        setArticles(articles.concat(parsedData.articles));
+    // parse "M-D-YYYY" date strings for newest-first ordering
+    const parsePostDate = (s) => {
+        const m = /^(\d{1,2})-(\d{1,2})-(\d{4})$/.exec((s || "").trim());
+        if (!m) return 0;
+        const d = new Date(+m[3], +m[1] - 1, +m[2]);
+        if (isNaN(d.getTime()) || d.getFullYear() > new Date().getFullYear()) return 0;
+        return d.getTime();
     };
- 
+
+    let resultNews = async () => {
+        await getDocs(collection(db, "articles"))
+            .then((querySnapshot) => {
+                const all = [];
+                querySnapshot.forEach(element => {
+                    all.push(element.data());
+                });
+                // newest first, like a feed
+                all.sort((a, b) => parsePostDate(b.dateStr) - parsePostDate(a.dateStr));
+                setArticles(all);
+            });
+    };
+
+    useEffect(() => {
+        resultNews();
+    }, []);
+
+    // An "Event" = a post where the MLA attends an event / meeting / visit.
+    // Everything else is a general update.
+    const EVENT_WORDS = [
+        "పర్యట", "హాజర", "సమావేశ", "కార్యక్రమ", "ప్రారంభ", "పాల్గొన",
+        "సందర్శ", "భేటీ", "చేరారు", "సభ", "వేడుక", "ఉత్సవ",
+        "meeting", "attend", "inaugurat", "visit", "event", "program", "joined", "tour",
+    ];
+    const isEvent = (a) => {
+        const text = ((a.title || "") + " " + (a.description || "")).toLowerCase();
+        return EVENT_WORDS.some((w) => text.includes(w));
+    };
+
+    const events = articles.filter(isEvent);
+    const latest = articles.slice(0, 6);
+
     return (
-        <InfiniteScroll
-            //This is important field to render the next data
-            dataLength={articles.length}
-            next={fetchData}
-            hasMore={
-                articles.length < totalResults
-            }
-            loader={
-                <h4 className="text-center">
-                    Loading...
-                </h4>}
-            endMessage={
-                <p style={{ textAlign: "center" }}>
-                    <b>Yay! You have seen it all</b>
-                </p>
-            }
-        >
-            <div className="container my-3">
-            <div class="row justify-content-md-center">
-    <div class="col col-lg-2">
-      
-    </div>
-    <div class="col-md-8">
-      Welcome to Good Morning Korutla , Website . Your can find all information about 
-      how our Leader Dr. Sanjay Kalwakuntla doing this program.
-    </div>
-    <div class="col col-lg-2">
-      
-    </div>
-  </div>
-        <div class="row">
-        <div class="col-8"> {articles.map((element) => {
-                        return (
-                            <div className="col-md-8" key={element.url}>
-                                <NewsItem
-                                    sourceName={element.source.name}
-                                    title={element.title}
-                                    desc={element.description}
-                                    imageURL=
-                                    {element.urlToImage}
-                                    newsUrl={element.url}
-                                    dateString = {element.dateStr}
-                                    embedUrl = {element.embedUrl}
-                                />
+        <>
+            {/* Events — only posts where the MLA attends an event/meeting/visit */}
+            <section className="gmk-news" id="events">
+                <h2 className="gmk-section-title"><span>—</span> Events <span>—</span></h2>
+                <div className="gmk-grid">
+                    {events.map((element) => (
+                        <NewsCard
+                            key={"ev-" + element.title + element.dateStr}
+                            title={element.title}
+                            desc={element.description}
+                            imageURL={element.urlToImage}
+                            dateString={element.dateStr}
+                        />
+                    ))}
+                </div>
+                {events.length === 0 && (
+                    <p className="text-center">No event visits yet. See All Updates below.</p>
+                )}
+            </section>
+
+            {/* Latest on Twitter (social updates) */}
+            <section className="gmk-social-feed" id="social">
+                <h2 className="gmk-section-title"><span>—</span> Latest on Twitter <span>—</span></h2>
+                <div className="gmk-social-grid">
+                    {latest.map((element) => (
+                        <SocialCard
+                            key={"soc-" + element.title + element.dateStr}
+                            title={element.title}
+                            desc={element.description}
+                            imageURL={element.urlToImage}
+                            dateString={element.dateStr}
+                            sourceName={element.source ? element.source.name : "Good Morning Korutla"}
+                        />
+                    ))}
+                </div>
+                {articles.length === 0 && (
+                    <p className="text-center">No social updates yet.</p>
+                )}
+            </section>
+
+            {/* All Updates */}
+            <section className="gmk-updates" id="updates">
+                <h2 className="gmk-section-title"><span>—</span> All Updates <span>—</span></h2>
+                <div className="gmk-timeline">
+                    {articles.map((element) => (
+                        <div className="gmk-timeline-item" key={"tl-" + element.title + element.dateStr}>
+                            <div className="gmk-timeline-dot"></div>
+                            <div className="gmk-timeline-content">
+                                <p className="gmk-timeline-date">{element.dateStr}</p>
+                                <h4>{element.title}</h4>
+                                <p>{element.description}</p>
                             </div>
-                        );
-                    })}</div>
-        <div class="col-2">
-        <div className="col-md-2">
-                                
-         </div>
-        </div>
-        </div>
-                
-            </div>
-        </InfiniteScroll>
+                        </div>
+                    ))}
+                </div>
+                {articles.length === 0 && (
+                    <p className="text-center">No updates yet.</p>
+                )}
+            </section>
+        </>
     );
 }
- 
+
 export default News;
