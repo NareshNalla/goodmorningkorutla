@@ -37,6 +37,7 @@ function News() {
     useEffect(() => {
         const onHash = () => {
             if (window.location.hash === "#events") setTab("events");
+            else if (window.location.hash === "#official") setTab("official");
             else if (window.location.hash === "#updates") setTab("all");
         };
         onHash();
@@ -56,7 +57,9 @@ function News() {
     };
 
     const events = articles.filter(isEvent);
-    const shown = tab === "events" ? events : articles;
+    // "Official" = posts published from the MLA's official accounts (X embeds etc.)
+    const official = articles.filter((a) => a.tweetUrl);
+    const shown = tab === "events" ? events : tab === "official" ? official : articles;
 
     return (
         <section className="gmk-feed" id="updates">
@@ -66,6 +69,9 @@ function News() {
                 </button>
                 <button type="button" role="tab" aria-selected={tab === "events"} className={"gmk-tab" + (tab === "events" ? " active" : "")} onClick={() => setTab("events")}>
                     📍 Events
+                </button>
+                <button type="button" role="tab" aria-selected={tab === "official"} className={"gmk-tab" + (tab === "official" ? " active" : "")} onClick={() => setTab("official")}>
+                    𝕏 Official Posts
                 </button>
             </div>
             <div className="gmk-feed-list">
