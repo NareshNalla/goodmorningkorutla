@@ -180,3 +180,39 @@ button:hover {
 .pretext{
   white-space: pre-line;
 }
+/* Post actions (like / share / follow) */
+.gmk-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.gmk-act-btn { border:1px solid #f8bbd0; background:#fff; color:#c2185b; border-radius:999px; padding:5px 12px; font-size:13px; cursor:pointer; text-decoration:none; line-height:1.4; }
+.gmk-act-btn:hover { background:#fce4ec; }
+.gmk-act-btn.gmk-liked { background:#e91e63; color:#fff; border-color:#e91e63; }
+.gmk-act-follow { color:#000; }
+
+/* Feed layout (news-site / social-feed feel) */
+.gmk-profilebar { display:flex; align-items:center; gap:16px; flex-wrap:wrap; background:#fff; border-bottom:3px solid #e91e63; padding:16px 20px; max-width:1100px; margin:0 auto; }
+.gmk-profilebar-avatar { width:76px; height:76px; border-radius:50%; object-fit:cover; border:3px solid #e91e63; }
+.gmk-profilebar-info { flex:1; min-width:220px; }
+.gmk-profilebar-name { font-size:24px; margin:0; color:#1a237e; }
+.gmk-profilebar-role { margin:2px 0; color:#555; }
+.gmk-profilebar-stats { margin:0; color:#c2185b; font-weight:600; font-size:14px; }
+.gmk-profilebar-actions { display:flex; gap:8px; flex-wrap:wrap; }
+.gmk-pb-btn { border:1px solid #f8bbd0; border-radius:999px; padding:6px 14px; text-decoration:none; color:#c2185b; font-size:14px; background:#fff; }
+.gmk-pb-btn:hover { background:#fce4ec; }
+.gmk-pb-x { color:#000; }
+.gmk-layout { display:flex; gap:24px; max-width:1100px; margin:0 auto; padding:16px; align-items:flex-start; }
+.gmk-main { flex:1; min-width:0; }
+.gmk-sidebar { width:340px; flex-shrink:0; }
+@media (max-width: 900px) { .gmk-layout { flex-direction:column; } .gmk-sidebar { width:100%; } }
+.gmk-feed-tabs { display:flex; gap:8px; margin-bottom:14px; }
+.gmk-tab { flex:1; border:1px solid #f8bbd0; background:#fff; color:#c2185b; border-radius:10px; padding:10px; font-size:15px; cursor:pointer; }
+.gmk-tab.active { background:#e91e63; color:#fff; }
+.gmk-feed-list { display:flex; flex-direction:column; gap:14px; }
+.gmk-feed-card { background:#fff; border:1px solid #f3d1de; border-radius:14px; padding:16px; box-shadow:0 1px 4px rgba(0,0,0,.05); }
+.gmk-feed-head { display:flex; gap:10px; align-items:center; }
+.gmk-feed-avatar { width:44px; height:44px; border-radius:50%; object-fit:cover; }
+.gmk-feed-name { margin:0; font-weight:700; }
+.gmk-verified { color:#e91e63; }
+.gmk-feed-handle { margin:0; color:#777; font-size:13px; }
+.gmk-feed-title { font-size:17px; margin:10px 0 6px; }
+.gmk-feed-text { color:#333; white-space:pre-line; }
+.gmk-feed-img { width:100%; border-radius:12px; margin-top:8px; }
+.gmk-feed-source { color:#999; font-size:12px; margin-top:8px; }

@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./Components/Header";
-import Hero from "./Components/Hero";
-import Stats from "./Components/Stats";
+import ProfileBar from "./Components/ProfileBar";
 import News from "./Components/News";
 import Constituency from "./Components/Constituency";
 import Journey from "./Components/Journey";
@@ -19,14 +18,19 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 function HomePage() {
     return (
         <>
-            <Hero />
-            <Stats />
-            <News />
-            <Constituency />
+            <ProfileBar />
+            <div className="gmk-layout">
+                <main className="gmk-main">
+                    <News />
+                </main>
+                <aside className="gmk-sidebar">
+                    <FollowUs />
+                    <FanCommunity />
+                    <Constituency />
+                </aside>
+            </div>
             <Journey />
             <About />
-            <FollowUs />
-            <FanCommunity />
         </>
     );
 }

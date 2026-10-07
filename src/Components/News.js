@@ -1,11 +1,11 @@
 import { React, useState, useEffect } from "react";
-import NewsCard from "./NewsCard";
-import SocialCard from "./SocialCard";
+import FeedCard from "./FeedCard";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase';
 
 function News() {
     let [articles, setArticles] = useState([]);
+    let [tab, setTab] = useState("all");
 
     // parse "M-D-YYYY" date strings for newest-first ordering
     const parsePostDate = (s) => {
@@ -21,7 +21,7 @@ function News() {
             .then((querySnapshot) => {
                 const all = [];
                 querySnapshot.forEach(element => {
-                    all.push(element.data());
+                    all.push({ id: element.id, ...element.data() });
                 });
                 // newest first, like a feed
                 all.sort((a, b) => parsePostDate(b.dateStr) - parsePostDate(a.dateStr));
@@ -34,7 +34,6 @@ function News() {
     }, []);
 
     // An "Event" = a post where the MLA attends an event / meeting / visit.
-    // Everything else is a general update.
     const EVENT_WORDS = [
         "పర్యట", "హాజర", "సమావేశ", "కార్యక్రమ", "ప్రారంభ", "పాల్గొన",
         "సందర్శ", "భేటీ", "చేరారు", "సభ", "వేడుక", "ఉత్సవ",
@@ -46,69 +45,36 @@ function News() {
     };
 
     const events = articles.filter(isEvent);
-    const latest = articles.slice(0, 6);
+    const shown = tab === "events" ? events : articles;
 
     return (
-        <>
-            {/* Events — only posts where the MLA attends an event/meeting/visit */}
-            <section className="gmk-news" id="events">
-                <h2 className="gmk-section-title"><span>—</span> Events <span>—</span></h2>
-                <div className="gmk-grid">
-                    {events.map((element) => (
-                        <NewsCard
-                            key={"ev-" + element.title + element.dateStr}
-                            title={element.title}
-                            desc={element.description}
-                            imageURL={element.urlToImage}
-                            dateString={element.dateStr}
-                        />
-                    ))}
-                </div>
-                {events.length === 0 && (
-                    <p className="text-center">No event visits yet. See All Updates below.</p>
+        <section className="gmk-feed" id="feed">
+            <div className="gmk-feed-tabs" role="tablist">
+                <button type="button" role="tab" aria-selected={tab === "all"} className={"gmk-tab" + (tab === "all" ? " active" : "")} onClick={() => setTab("all")}>
+                    📰 All Updates
+                </button>
+                <button type="button" role="tab" aria-selected={tab === "events"} className={"gmk-tab" + (tab === "events" ? " active" : "")} onClick={() => setTab("events")}>
+                    📍 Events
+                </button>
+            </div>
+            <div className="gmk-feed-list">
+                {shown.map((element) => (
+                    <FeedCard
+                        key={"feed-" + element.id}
+                        title={element.title}
+                        desc={element.description}
+                        imageURL={element.urlToImage}
+                        dateString={element.dateStr}
+                        docId={element.id}
+                        likes={element.likes || 0}
+                        sourceName={element.source ? element.source.name : ""}
+                    />
+                ))}
+                {shown.length === 0 && (
+                    <p className="text-center">No posts yet.</p>
                 )}
-            </section>
-
-            {/* Latest on Twitter (social updates) */}
-            <section className="gmk-social-feed" id="social">
-                <h2 className="gmk-section-title"><span>—</span> Latest on Twitter <span>—</span></h2>
-                <div className="gmk-social-grid">
-                    {latest.map((element) => (
-                        <SocialCard
-                            key={"soc-" + element.title + element.dateStr}
-                            title={element.title}
-                            desc={element.description}
-                            imageURL={element.urlToImage}
-                            dateString={element.dateStr}
-                            sourceName={element.source ? element.source.name : "Good Morning Korutla"}
-                        />
-                    ))}
-                </div>
-                {articles.length === 0 && (
-                    <p className="text-center">No social updates yet.</p>
-                )}
-            </section>
-
-            {/* All Updates */}
-            <section className="gmk-updates" id="updates">
-                <h2 className="gmk-section-title"><span>—</span> All Updates <span>—</span></h2>
-                <div className="gmk-timeline">
-                    {articles.map((element) => (
-                        <div className="gmk-timeline-item" key={"tl-" + element.title + element.dateStr}>
-                            <div className="gmk-timeline-dot"></div>
-                            <div className="gmk-timeline-content">
-                                <p className="gmk-timeline-date">{element.dateStr}</p>
-                                <h4>{element.title}</h4>
-                                <p>{element.description}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                {articles.length === 0 && (
-                    <p className="text-center">No updates yet.</p>
-                )}
-            </section>
-        </>
+            </div>
+        </section>
     );
 }
 

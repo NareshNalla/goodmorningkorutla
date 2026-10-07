@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import { firstImageSrc } from "../utils/imageUrl";
+import PostActions from "./PostActions";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -36,6 +37,7 @@ function NewsCard(props) {
                 <h3 className="gmk-card-title">{title}</h3>
                 {excerpt && <p className="gmk-card-desc">{excerpt}</p>}
                 <p className="gmk-card-date">{dateString}</p>
+                <PostActions docId={props.docId} title={title} likes={props.likes} />
             </div>
         </article>
     );
