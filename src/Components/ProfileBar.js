@@ -8,7 +8,6 @@ function ProfileBar() {
             <div className="gmk-profilebar-info">
                 <h1 className="gmk-profilebar-name">Good Morning Korutla</h1>
                 <p className="gmk-profilebar-role">Dr. Sanjay Kalvakuntla · MLA, Korutla (BRS)</p>
-                <p className="gmk-profilebar-stats">72,115 votes · Won by 10,305 · Elected 2023</p>
             </div>
             <div className="gmk-profilebar-actions">
                 <a className="gmk-pb-btn gmk-pb-x" href="https://x.com/drsanjayBRS" target="_blank" rel="noreferrer">𝕏 Follow</a>

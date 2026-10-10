@@ -6,6 +6,8 @@ import { db } from '../firebase';
 function News() {
     let [articles, setArticles] = useState([]);
     let [tab, setTab] = useState("all");
+    let [loading, setLoading] = useState(true);
+    let [loadError, setLoadError] = useState(false);
 
     // parse "M-D-YYYY" date strings for newest-first ordering
     const parsePostDate = (s) => {
@@ -17,16 +19,20 @@ function News() {
     };
 
     let resultNews = async () => {
-        await getDocs(collection(db, "articles"))
-            .then((querySnapshot) => {
-                const all = [];
-                querySnapshot.forEach(element => {
-                    all.push({ id: element.id, ...element.data() });
-                });
-                // newest first, like a feed
-                all.sort((a, b) => parsePostDate(b.dateStr) - parsePostDate(a.dateStr));
-                setArticles(all);
+        try {
+            const querySnapshot = await getDocs(collection(db, "articles"));
+            const all = [];
+            querySnapshot.forEach(element => {
+                all.push({ id: element.id, ...element.data() });
             });
+            // newest first, like a feed
+            all.sort((a, b) => parsePostDate(b.dateStr) - parsePostDate(a.dateStr));
+            setArticles(all);
+        } catch (e) {
+            setLoadError(true);
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -88,7 +94,13 @@ function News() {
                         sourceName={element.source ? element.source.name : ""}
                     />
                 ))}
-                {shown.length === 0 && (
+                {loading && (
+                    <p className="text-center">Loading posts…</p>
+                )}
+                {!loading && loadError && (
+                    <p className="text-center">Could not load posts. Please refresh.</p>
+                )}
+                {!loading && !loadError && shown.length === 0 && (
                     <p className="text-center">No posts yet.</p>
                 )}
             </div>
