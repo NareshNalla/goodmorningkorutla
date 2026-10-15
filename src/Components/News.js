@@ -25,8 +25,13 @@ function News() {
             querySnapshot.forEach(element => {
                 all.push({ id: element.id, ...element.data() });
             });
-            // newest first, like a feed
-            all.sort((a, b) => parsePostDate(b.dateStr) - parsePostDate(a.dateStr));
+            // newest first, like a feed; break same-day ties by publish time
+            const createdMillis = (p) => {
+                const c = p.created;
+                try { return (c && typeof c.toMillis === "function") ? c.toMillis() : 0; }
+                catch { return 0; }
+            };
+            all.sort((a, b) => (parsePostDate(b.dateStr) - parsePostDate(a.dateStr)) || (createdMillis(b) - createdMillis(a)));
             setArticles(all);
         } catch (e) {
             setLoadError(true);
